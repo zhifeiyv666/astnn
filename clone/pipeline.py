@@ -28,8 +28,8 @@ class Pipeline:
                 parser = c_parser.CParser()
                 source = pd.read_pickle(self.root+self.language+'/programs.pkl')
                 source.columns = ['id', 'code', 'label']
-                source['code'] = source['code'].apply(parser.parse)
-                source.to_pickle(path)
+                source['code'] = source['code'].apply(parser.parse) # 调包，将C语言源代码文本转化为AST
+                source.to_pickle(path) # 保存生成的抽象语法树的python内存映射
             else:
                 import javalang
                 def parse_program(func):
@@ -97,7 +97,7 @@ class Pipeline:
             sys.path.append('../')
             from prepare_data import get_sequences as func
         else:
-            from utils import get_sequence as func
+            from clone.utils import get_sequence as func
 
         def trans_to_sequences(ast):
             sequence = []
@@ -117,7 +117,7 @@ class Pipeline:
         if self.language is 'c':
             from prepare_data import get_blocks as func
         else:
-            from utils import get_blocks_v1 as func
+            from clone.utils import get_blocks_v1 as func
         from gensim.models.word2vec import Word2Vec
 
         word2vec = Word2Vec.load(self.root+self.language+'/train/embedding/node_w2v_' + str(self.size)).wv
