@@ -4,7 +4,7 @@ import time
 import numpy as np
 import warnings
 from gensim.models.word2vec import Word2Vec
-from model import BatchProgramCC
+from clone.model import BatchProgramCC
 from torch.autograd import Variable
 from sklearn.metrics import precision_recall_fscore_support
 warnings.filterwarnings('ignore')

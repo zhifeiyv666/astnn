@@ -96,6 +96,9 @@ class BatchProgramCC(nn.Module):
         # gru
         self.bigru = nn.GRU(self.encode_dim, self.hidden_dim, num_layers=self.num_layers, bidirectional=True,
                             batch_first=True)
+        # lstm替换gru的对比实验
+        # self.bigru = nn.LSTM(self.encode_dim, self.hidden_dim, num_layers=self.num_layers, bidirectional=True,
+        #                     batch_first=True)
         # linear
         self.hidden2label = nn.Linear(self.hidden_dim * 2, self.label_size)
         # hidden
@@ -141,7 +144,7 @@ class BatchProgramCC(nn.Module):
 
         gru_out, hidden = self.bigru(encodes, self.hidden)
         gru_out = torch.transpose(gru_out, 1, 2)
-        # pooling
+        # pooling， 注释掉池化过程即取消该层(编码层)的池化层.
         gru_out = F.max_pool1d(gru_out, gru_out.size(2)).squeeze(2)
         # gru_out = gru_out[:,-1]
 
