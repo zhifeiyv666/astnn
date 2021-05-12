@@ -99,6 +99,7 @@ class BatchProgramCC(nn.Module):
         # lstm替换gru的对比实验
         # self.bigru = nn.LSTM(self.encode_dim, self.hidden_dim, num_layers=self.num_layers, bidirectional=True,
         #                     batch_first=True)
+        # self.bigru = self.bigru[0], self.bigru[1][0]
         # linear
         self.hidden2label = nn.Linear(self.hidden_dim * 2, self.label_size)
         # hidden
