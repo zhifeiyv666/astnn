@@ -116,6 +116,9 @@ class Pipeline:
     def generate_block_seqs(self):
         if self.language is 'c':
             from prepare_data import get_blocks as func
+            ## 改变粒度实验
+            # from prepare_data import get_blocks_full_ast as func
+            # from prepare_data import get_blocks_min_ast_node as func
         else:
             from clone.utils import get_blocks_v1 as func
         from gensim.models.word2vec import Word2Vec
